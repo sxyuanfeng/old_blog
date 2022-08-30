@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="LAMP,vim," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="上了六天的课，又到了周六，一样的日子一样的难过。一直很怕生活毫无变化，又很怕发生变化，这样的矛盾由来已久，倒也没有什么，只是多费了点时间和脑力。 在想五一要不要出去玩，出去的话去哪里，回来后的考试怎么办，一个多月的混乱生活之后还有没有闲钱，比赛什么时候准备。原来打消一个念头这么容易。 最近又开始有点膨胀了，将近一个礼拜">
+<meta name="keywords" content="LAMP,vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LAMP服务器之vim编辑器">
+<meta property="og:url" content="http://yoursite.com/2018/04/14/LAMP服务器搭建之vim编辑器/index.html">
+<meta property="og:site_name" content="游城">
+<meta property="og:description" content="上了六天的课，又到了周六，一样的日子一样的难过。一直很怕生活毫无变化，又很怕发生变化，这样的矛盾由来已久，倒也没有什么，只是多费了点时间和脑力。 在想五一要不要出去玩，出去的话去哪里，回来后的考试怎么办，一个多月的混乱生活之后还有没有闲钱，比赛什么时候准备。原来打消一个念头这么容易。 最近又开始有点膨胀了，将近一个礼拜没去图书馆，没学前端，没看计网，没学日语，没看太宰治。三天没去健身房，发现有个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/WRNSIp0.png">
+<meta property="og:updated_time" content="2018-04-18T15:14:24.999Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LAMP服务器之vim编辑器">
+<meta name="twitter:description" content="上了六天的课，又到了周六，一样的日子一样的难过。一直很怕生活毫无变化，又很怕发生变化，这样的矛盾由来已久，倒也没有什么，只是多费了点时间和脑力。 在想五一要不要出去玩，出去的话去哪里，回来后的考试怎么办，一个多月的混乱生活之后还有没有闲钱，比赛什么时候准备。原来打消一个念头这么容易。 最近又开始有点膨胀了，将近一个礼拜没去图书馆，没学前端，没看计网，没学日语，没看太宰治。三天没去健身房，发现有个">
+<meta name="twitter:image" content="https://i.imgur.com/WRNSIp0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/14/LAMP服务器搭建之vim编辑器/"/>
+
+
+
+
+
+  <title>LAMP服务器之vim编辑器 | 游城</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/sxyuanfeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">游城</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">辗转跋涉</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/LAMP服务器搭建之vim编辑器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xujiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="游城">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LAMP服务器之vim编辑器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-14T18:52:10+08:00">
+                2018-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>上了六天的课，又到了周六，一样的日子一样的难过。一直很怕生活毫无变化，又很怕发生变化，这样的矛盾由来已久，倒也没有什么，只是多费了点时间和脑力。</p>
+<p>在想五一要不要出去玩，出去的话去哪里，回来后的考试怎么办，一个多月的混乱生活之后还有没有闲钱，比赛什么时候准备。原来打消一个念头这么容易。</p>
+<p>最近又开始有点膨胀了，将近一个礼拜没去图书馆，没学前端，没看计网，没学日语，没看太宰治。三天没去健身房，发现有个人也开始去健身房了。</p>
+<p>开始了几个新的兴趣爱好：刷抖音，刷微博，看《雪中悍刀行》，学尤克里里，自拍。</p>
+<p>苍山洱海泸沽湖什么的还是等我有钱有时间了再说吧。</p>
+<hr>
+<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>其实我想写的是 vi 编辑器，但是管他呢，vi、vim不分家。</p>
+<h3 id="进入vi编辑器"><a href="#进入vi编辑器" class="headerlink" title="进入vi编辑器"></a>进入vi编辑器</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vi filename</td>
+<td>如果filename存在，则打开；否则会创建一个新文件再打开。</td>
+</tr>
+<tr>
+<td>vi -R filename / view filename</td>
+<td>以只读模式打开现有文件。</td>
+</tr>
+</tbody>
+</table>
+<p>打开一个html文件：<br><img src="https://i.imgur.com/WRNSIp0.png" alt=""><br>波浪号（~）代表该行没有任何内容，如果没有~，也没有任何内容，那说明这一行肯定是有空白字符（空格、tab、换行符等）或者不可见字符。</p>
+<p>tips：vi 区分大小写，请不要弄错大小写。</p>
+<h3 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h3><p>vi有三种工作模式，分别是普通模式、编辑模式和命令模式。</p>
+<ol>
+<li>普通模式：输入命令执行，可以移动光标、切换模式、滑动屏幕、文本查找等。</li>
+<li>编辑模式：插入文本、删除文本、修改文本，复制粘贴、文本缩进、更改大小写、撤销操作、重命名、保存文件、另存文件、切换文件。</li>
+<li>命令模式：可以对编辑器进行设置、可以在输入<code>!</code>后输入Linux命令执行。</li>
+</ol>
+<p>在普通模式下输入i（插入）、c（修改）、o（另起一行）命令时进入编辑模式；按Esc键退回到普通模式。<br>在普通模式下输入冒号（:）可以进入命令模式，输入完命令按回车，命令执行完后自动退回到普通模式。<br>无论在哪种模式，按两次Esc键将回到普通模式。</p>
+<h4 id="普通模式"><a href="#普通模式" class="headerlink" title="普通模式"></a>普通模式</h4><p>进入vi编辑器时，首先进入普通模式。在普通模式下输入的任何字符都会被当做命令来解释。输入命令后立即执行，不需要回车确定，输入的字符不会在屏幕上显示出来。</p>
+<p>进入普通模式来移动光标</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k</td>
+<td>向上移动光标（移动一行）</td>
+</tr>
+<tr>
+<td>j</td>
+<td>向下移动光标（移动一行）</td>
+</tr>
+<tr>
+<td>h</td>
+<td>向左移动光标（移动一个字符）</td>
+</tr>
+<tr>
+<td>l</td>
+<td>向右移动光标（移动一个字符）</td>
+</tr>
+<tr>
+<td>O</td>
+<td>将光标定位在一行的开头</td>
+</tr>
+<tr>
+<td>$</td>
+<td>将光标定位在一行的末尾</td>
+</tr>
+<tr>
+<td>w</td>
+<td>定位到下一个单词</td>
+</tr>
+<tr>
+<td>b</td>
+<td>定位到上一个单词</td>
+</tr>
+<tr>
+<td>(</td>
+<td>定位到一句话的开头，句子是以!.?三种符号来界定的</td>
+</tr>
+<tr>
+<td>(</td>
+<td>定位到一句话的结尾</td>
+</tr>
+<tr>
+<td>{</td>
+<td>移动到段落开头</td>
+</tr>
+<tr>
+<td>}</td>
+<td>移动到段落结束</td>
+</tr>
+<tr>
+<td>[[</td>
+<td>回到段落的开头处</td>
+</tr>
+<tr>
+<td>]]</td>
+<td>向前移到下一个段落的开头处</td>
+</tr>
+<tr>
+<td>nl</td>
+<td>移动到第n列</td>
+</tr>
+<tr>
+<td>1G</td>
+<td>移动到文件第一行</td>
+</tr>
+<tr>
+<td>G</td>
+<td>移动到文件最后一行</td>
+</tr>
+<tr>
+<td>nG</td>
+<td>移动到文件第n行</td>
+</tr>
+<tr>
+<td>:n</td>
+<td>移动到文件第n行</td>
+</tr>
+<tr>
+<td>H</td>
+<td>移动到屏幕顶部</td>
+</tr>
+<tr>
+<td>nH</td>
+<td>移动到距离屏幕顶部第n行的位置</td>
+</tr>
+<tr>
+<td>M</td>
+<td>移动到屏幕中间</td>
+</tr>
+<tr>
+<td>L</td>
+<td>移动到屏幕底部</td>
+</tr>
+<tr>
+<td>nL</td>
+<td>移动到距离屏幕底部第n行的位置</td>
+</tr>
+<tr>
+<td>:x</td>
+<td>x是一个数字，表示移动到行号为x的行</td>
+</tr>
+</tbody>
+</table>
+<p>tips：也可以用上下左右箭头移动。</p>
+<p>有一些控制命令可以与Ctrl键组合使用</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+d</td>
+<td>向前滚动半屏</td>
+</tr>
+<tr>
+<td>Ctrl+f</td>
+<td>向前滚动全屏</td>
+</tr>
+<tr>
+<td>Ctrl+u</td>
+<td>向后滚动半屏</td>
+</tr>
+<tr>
+<td>Ctrl+b</td>
+<td>向前滚动整屏</td>
+</tr>
+<tr>
+<td>Ctrl+e</td>
+<td>向上滚动一行</td>
+</tr>
+<tr>
+<td>Ctrl+y</td>
+<td>向下滚动一行</td>
+</tr>
+<tr>
+<td>Ctrl+l</td>
+<td>刷新屏幕</td>
+</tr>
+</tbody>
+</table>
+<h4 id="编辑模式"><a href="#编辑模式" class="headerlink" title="编辑模式"></a>编辑模式</h4><p>可以直接使用以下命令从普通模式进入到编辑模式</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>在当前光标位置之前插入文本</td>
+</tr>
+<tr>
+<td>l</td>
+<td>在当前行的开头插入文本</td>
+</tr>
+<tr>
+<td>a</td>
+<td>在当前光标位置之后插入文本</td>
+</tr>
+<tr>
+<td>A</td>
+<td>在当前行的末尾插入文本</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在当前位置下面创建一行</td>
+</tr>
+<tr>
+<td>O</td>
+<td>在当前位置上面创建一行</td>
+</tr>
+</tbody>
+</table>
+<p>删除文件中的字符或行</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>删除当前光标下的字符</td>
+</tr>
+<tr>
+<td>X</td>
+<td>删除光标前面的字符</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>删除从当前光标到单词结尾的字符</td>
+</tr>
+<tr>
+<td>d^</td>
+<td>删除从当前光标到行首的字符</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>删除从当前光标到行尾的字符</td>
+</tr>
+<tr>
+<td>D</td>
+<td>删除从当前光标到行尾的字符</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除当前光标所在的行</td>
+</tr>
+</tbody>
+</table>
+<p>对字符、单词或行进行修改</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cc</td>
+<td>删除当前行，并进入编辑模式</td>
+</tr>
+<tr>
+<td>cw</td>
+<td>删除当前字（单词），并进入编辑模式</td>
+</tr>
+<tr>
+<td>r</td>
+<td>替换当前光标下的字符</td>
+</tr>
+<tr>
+<td>R</td>
+<td>从当前光标开始替换字符，按Esc键退出</td>
+</tr>
+<tr>
+<td>s</td>
+<td>用输入的字符替换当前字符，并进入编辑模式</td>
+</tr>
+<tr>
+<td>S</td>
+<td>用输入的文本替换当前行，并进入编辑模式</td>
+</tr>
+</tbody>
+</table>
+<p>复制粘贴</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yy</td>
+<td>复制当前行</td>
+</tr>
+<tr>
+<td>nyy</td>
+<td>复制n行</td>
+</tr>
+<tr>
+<td>yw</td>
+<td>复制一个字（单词）</td>
+</tr>
+<tr>
+<td>nyw</td>
+<td>复制n行</td>
+</tr>
+<tr>
+<td>p</td>
+<td>将复制的文本粘贴到光标后面</td>
+</tr>
+<tr>
+<td>P</td>
+<td>将复制的文本粘贴到光标前面</td>
+</tr>
+</tbody>
+</table>
+<p>下面的命令会让你的效率变高</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>J</td>
+<td>将当前行和下一行连接为一行</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>将当前行左移一个单位（一个缩进宽度）</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>将当前行右移一个单位（一个缩进宽度）</td>
+</tr>
+<tr>
+<td>~</td>
+<td>改变当前字符的大小写</td>
+</tr>
+<tr>
+<td>^G</td>
+<td>Ctrl+G组合键可以显示当前文件名和状态</td>
+</tr>
+<tr>
+<td>U</td>
+<td>撤销对当前行所做的修改</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤销上次操作，再次按‘u’恢复该次操作</td>
+</tr>
+<tr>
+<td>:f filename</td>
+<td>将文件重命名为filename</td>
+</tr>
+<tr>
+<td>:w filename</td>
+<td>保存修改到filename</td>
+</tr>
+<tr>
+<td>:e filename</td>
+<td>打开另一个文件名为filename的文件</td>
+</tr>
+<tr>
+<td>:cd dirname</td>
+<td>改变当前工作目录到dirname</td>
+</tr>
+<tr>
+<td>:e #</td>
+<td>在两个打开的文件之间进行切换</td>
+</tr>
+<tr>
+<td>:n</td>
+<td>如果用vi 打开了多个文件，可以使用:n 切换到下一个文件</td>
+</tr>
+<tr>
+<td>:p</td>
+<td>如果用vi 打开了多个文件，可以使用:n 切换到上一个文件</td>
+</tr>
+<tr>
+<td>:N</td>
+<td>如果用vi 打开了多个文件，可以使用:n 切换到上一个文件</td>
+</tr>
+<tr>
+<td>:r file</td>
+<td>读取文件并在当前行的后边插入</td>
+</tr>
+<tr>
+<td>:nr file</td>
+<td>读取文件并在第n行后边插入</td>
+</tr>
+</tbody>
+</table>
+<h4 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h4><p>一般在命令模式下退出vi编辑器。</p>
+<table>
+<thead>
+<tr>
+<th>退出命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>q</td>
+<td>如果文件未被修改，会直接退回到终端；否则提示保存文件。</td>
+</tr>
+<tr>
+<td>q!</td>
+<td>强行退出，不保存修改内容。</td>
+</tr>
+<tr>
+<td>wq</td>
+<td>w命令保存文件，q命令退出vi，合起来就是保存并退出。</td>
+</tr>
+<tr>
+<td>zz</td>
+<td>保存并退出，相当于wq，但是更加方便。</td>
+</tr>
+</tbody>
+</table>
+<p>tips：<code>w filename2</code>表示将文件另存为filename2.</p>
+<p>如果希望进行全文件搜索，可以在普通模式下输入<code>/</code>后输入要查找的字符并回车。<code>/</code>命令是向下查找，<code>?</code>是向上查找。这时，输入<code>n</code>命令，就会继续按相同的方向查找这个字符，输入<code>N</code>命令就按相反的方向查找这个字符。</p>
+<p>搜索的字符串中可以包含一些有特殊含义的字符，如果希望搜索这些字符本身，需要在前面加反斜杠(\)。</p>
+<table>
+<thead>
+<tr>
+<th>特殊字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>匹配一行的开头</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配一个字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配0个或多个字符</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配一行的结尾</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配一组字符</td>
+</tr>
+</tbody>
+</table>
+<p>set命令可以对vi 编辑器进行一些设置，使用set命令需要进入命令模式。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:set ic</td>
+<td>搜索时忽略大小写</td>
+</tr>
+<tr>
+<td>:set ai</td>
+<td>设置自动缩进（自动对齐）</td>
+</tr>
+<tr>
+<td>:set noai</td>
+<td>取消自动缩进（自动对齐）</td>
+</tr>
+<tr>
+<td>:set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>:set sw</td>
+<td>设置缩进的空格数，例如，将缩进空格数设置为4： :set sw=4</td>
+</tr>
+<tr>
+<td>:set ws</td>
+<td>循环搜索：如果到文件末尾也没有查找到指定字符，那么会回到开头继续查找</td>
+</tr>
+<tr>
+<td>:set wm</td>
+<td>设置自动换行，例如，设置距离边际2个字符时换行： :set wm=2</td>
+</tr>
+<tr>
+<td>:set ro</td>
+<td>将文件类型改为只读</td>
+</tr>
+<tr>
+<td>:set term</td>
+<td>输出终端类型</td>
+</tr>
+<tr>
+<td>:set bf</td>
+<td>忽略输入的控制字符，如BEL（响铃）、BS（退格）、CR(回车）等</td>
+</tr>
+</tbody>
+</table>
+<p>切换到命令模式，再输入<code>!</code>命令即可运行Linux命令，执行完后按任意键回到vi 编辑器。</p>
+<p>切换到命令模式，再输入<code>s/</code>命令即可对文本进行替换。例如<code>:s/search/replace/g</code><br>search 为检索的文本，replace 为要替换的文本，g表示全局替换。</p>
+<hr>
+<p><em>尾注：可以在命令前面添加一个数字作为前缀，例如2j，表示将光标下移两行。</em></p>
+<hr>
+<p>哈哈，用vim的原因是在Linux里面找不到我要的文件夹，没办法在图形化界面里操作文件，只能用命令行来读写。结果博客刚写了个开头我就找到文件夹了，可以在文本编辑器里面很舒服的写了，我tm干嘛还要学怎么用vim。这篇博客真的是硬着头皮写下来，单纯只是为了写一点酷酷的东西。</p>
+<p><em>每次都幻想着好的那一面</em><br><em>事实却是相当残酷</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LAMP/" rel="tag"><i class="fa fa-tag"></i> LAMP</a>
+          
+            <a href="/tags/vim/" rel="tag"><i class="fa fa-tag"></i> vim</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/07/无聊的三天假期-续/" rel="next" title="无聊的三天假期-续">
+                <i class="fa fa-chevron-left"></i> 无聊的三天假期-续
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/情绪来得快，去得更快/" rel="prev" title="情绪来得快，去得更快">
+                情绪来得快，去得更快 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">xujiang</p>
+              <p class="site-description motion-element" itemprop="description">草末</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sxyuanfeng" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                朋友
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://wangtianzhi.me/" title="大智" target="_blank">大智</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#vim"><span class="nav-number">1.</span> <span class="nav-text">vim</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进入vi编辑器"><span class="nav-number">1.1.</span> <span class="nav-text">进入vi编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作模式"><span class="nav-number">1.2.</span> <span class="nav-text">工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#普通模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">普通模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编辑模式"><span class="nav-number">1.2.2.</span> <span class="nav-text">编辑模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">1.2.3.</span> <span class="nav-text">命令模式</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-telegram" aria-hidden="true"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xujiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+    <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/love.js"></script>
+	
+</body>
+</html>
